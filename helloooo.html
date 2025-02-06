@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Intake Calculator</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to right, #c9daf8, #c9f8d0);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            max-width: 600px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        h2, h3 {
+            color: #333;
+        }
+        input, select, button {
+            width: calc(100% - 20px);
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            font-size: 16px;
+        }
+        button {
+            background-color: #ff5e62;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        button:hover {
+            background-color: #c9f8d0;
+        }
+        p {
+            font-size: 18px;
+            color: #444;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Food Intake Calculator</h2>
+        <form id="foodForm">
+            <input type="number" id="age" placeholder="Enter your age" required>
+            <input type="number" id="height" placeholder="Enter your height (cm)" required>
+            <label for="health">Select your health condition:</label>
+            <select id="health">
+                <option value="none">No Health Conditions</option>
+                <option value="diabetes">Diabetes</option>
+                <option value="hypertension">Hypertension</option>
+                <option value="heart-disease">Heart Disease</option>
+                <option value="allergies">Food Allergies</option>
+            </select>
+            <label for="cuisine">Select your preferred cuisine:</label>
+            <select id="cuisine">
+                <option value="italian">Italian</option>
+                <option value="indian">Indian</option>
+                <option value="japanese">Japanese</option>
+                <option value="chinese">Chinese</option>
+                <option value="mexican">Mexican</option>
+                <option value="mediterranean">Mediterranean</option>
+                <option value="thai">Thai</option>
+                <option value="french">French</option>
+            </select>
+            <label for="appetite">Select your appetite level:</label>
+            <select id="appetite">
+                <option value="small">Small</option>
+                <option value="medium">Medium</option>
+                <option value="large">Large</option>
+            </select>
+            <label for="allergies">Select your allergies (if any):</label>
+            <select id="allergies">
+                <option value="none">No Allergies</option>
+                <option value="nuts">Nuts</option>
+                <option value="gluten">Gluten</option>
+                <option value="dairy">Dairy</option>
+                <option value="seafood">Seafood</option>
+            </select>
+            <label for="dietary">Select your dietary preference:</label>
+            <select id="dietary">
+                <option value="none">No Preference</option>
+                <option value="vegetarian">Vegetarian</option>
+                <option value="vegan">Vegan</option>
+                <option value="gluten-free">Gluten-Free</option>
+                <option value="keto">Keto</option>
+                <option value="paleo">Paleo</option>
+            </select>
+            <input type="text" id="goals" placeholder="Enter your health goals">
+            <label for="activity">Select your activity level:</label>
+            <select id="activity">
+                <option value="low">Low</option>
+                <option value="moderate">Moderate</option>
+                <option value="high">High</option>
+            </select>
+            <button type="button" onclick="calculateFoodIntake()">Calculate</button>
+        </form>
+        <h3>Recommended Food Intake:</h3>
+        <p id="result"></p>
+        <h3>Suggested Meal:</h3>
+        <p id="meal"></p>
+    </div>
+    <script>
+        function calculateFoodIntake() {
+            const age = document.getElementById("age").value;
+            const appetite = document.getElementById("appetite").value;
+            const activity = document.getElementById("activity").value;
+            const cuisine = document.getElementById("cuisine").value;
+            const dietary = document.getElementById("dietary").value;
+            
+            let calorieIntake = 2000;
+            if (age < 18) calorieIntake -= 500;
+            if (appetite === "small") calorieIntake -= 300;
+            if (appetite === "large") calorieIntake += 300;
+            if (activity === "high") calorieIntake += 500;
+            if (activity === "low") calorieIntake -= 200;
+            
+            document.getElementById("result").innerText = `Recommended daily calorie intake: ${calorieIntake} kcal`;
+            
+            let mealSuggestions = {
+                "italian": "Pasta primavera with grilled vegetables.",
+                "indian": "Chickpea curry with brown rice.",
+                "japanese": "Tofu stir-fry with miso soup.",
+                "chinese": "Vegetable lo mein with tofu.",
+                "mexican": "Black bean tacos with avocado.",
+                "mediterranean": "Greek salad with hummus and pita.",
+                "thai": "Thai green curry with tofu and jasmine rice.",
+                "french": "Ratatouille with quinoa."
+            };
+            
+            let mealSuggestion = mealSuggestions[cuisine] || "Balanced meal with protein, vegetables, and healthy carbs.";
+            document.getElementById("meal").innerText = mealSuggestion;
+        }
+    </script>
+</body>
+</html>
+
